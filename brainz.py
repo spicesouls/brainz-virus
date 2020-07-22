@@ -13,19 +13,22 @@ bot = commands.Bot(command_prefix=prefix, self_bot=True)
 
 @bot.event
 async def on_message(message):
-    randombrains = random.randint(1,50)
-    firstcontent = message.content
-    firstcontentlength = len(firstcontent)
-    contentbefore = ""
-    if firstcontentlength < 3:
+    if bot.user.id == message.author.id:
+        randombrains = random.randint(1,50)
+        firstcontent = message.content
+        firstcontentlength = len(firstcontent)
+        contentbefore = ""
+        if firstcontentlength < 3:
+            pass
+        elif firstcontentlength < 5:
+            contentbefore = firstcontent[:2]
+        elif firstcontentlength > 5:
+            firstcontentnum = random.randint(1, 5)
+            contentbefore = firstcontent[:firstcontentnum]
+        
+        await message.edit(content=contentbefore + "BR" + 'A' * randombrains + "INS")
+    else:
         pass
-    elif firstcontentlength < 5:
-        contentbefore = firstcontent[:2]
-    elif firstcontentlength > 5:
-        firstcontentnum = random.randint(1, 5)
-        contentbefore = firstcontent[:firstcontentnum]
-    
-    await message.edit(content=contentbefore + "BR" + 'A' * randombrains + "INS")
         
 
 bot.run(token, bot=False)
